@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <set>
+#include <queue>
 #include <algorithm>
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
@@ -20,8 +20,7 @@ std::ostream &operator<<(std::ostream &ss, const std::pair<int, int> &p)
     return ss;
 }
 
-template<typename T>
-std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
+std::ostream &operator<<(std::ostream &ss, const std::vector<int> &c)
 {
     ss << "[ ";
     for (const auto &e : c)
@@ -32,19 +31,28 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class RecentCounter {
 public:
-    int template(vector<int> &nums)
-    {
-
+    RecentCounter() {}
+    
+    int ping(int t) {
+        pings.push(t);
+        while (pings.front() < t - 3000)
+            pings.pop();
+        return pings.size();
     }
+
+private:
+    std::queue<int> pings;
 };
+
 
 int main(int argc, char const *argv[])
 {
-    Solution s;
-    auto result = s.template(..);
-    std::cout << "Result: " << result << std::endl;
+    RecentCounter s;
+    std::cout << "Result: " << s.ping(1) << std::endl;
+    std::cout << "Result: " << s.ping(100) << std::endl;
+    std::cout << "Result: " << s.ping(3001) << std::endl;
+    std::cout << "Result: " << s.ping(3002) << std::endl;
     return 0;
 }

@@ -32,19 +32,26 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
+    int smallestRangeI(const std::vector<int>& A, int K)
     {
-
+        int min = A.at(0);
+        int max = A.at(0);
+        for (auto &&i : A)
+        {
+            min = std::min(min, i);
+            max = std::max(max, i);
+        }
+        return std::max(0, max - K - min - K);
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    auto result = s.template(..);
+    // auto result = s.smallestRangeI({1, 3, 6}, 3);
+    auto result = s.smallestRangeI({0, 10}, 2);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

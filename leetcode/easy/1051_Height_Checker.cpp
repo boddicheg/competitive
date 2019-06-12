@@ -5,7 +5,7 @@
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
-template<typename T>
+template <typename T>
 void print(const T &container)
 {
     std::cout << "[ ";
@@ -20,8 +20,7 @@ std::ostream &operator<<(std::ostream &ss, const std::pair<int, int> &p)
     return ss;
 }
 
-template<typename T>
-std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
+std::ostream &operator<<(std::ostream &ss, const std::vector<int> &c)
 {
     ss << "[ ";
     for (const auto &e : c)
@@ -35,16 +34,27 @@ static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); retu
 class Solution
 {
 public:
-    int template(vector<int> &nums)
+    int heightChecker(const std::vector<int> &heights)
     {
+        std::vector<int> heights2 = heights;
+        std::sort(heights2.begin(), heights2.end());
 
+        int result = 0;
+        for (size_t i = 0; i < heights.size(); i++)
+        {
+            if (heights.at(i) != heights2.at(i))
+                result++;
+        }
+        
+        return result;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    auto result = s.template(..);
+    // auto result = s.heightChecker({1, 1, 4, 2, 1, 3});
+    auto result = s.heightChecker({1,2,1,2,1,1,1,2,1});
     std::cout << "Result: " << result << std::endl;
     return 0;
 }
