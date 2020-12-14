@@ -1,0 +1,24 @@
+Reykjavik - https://ctflearn.com/challenge/990
+
+Category: Reverse Engineering
+Solution #1:
+
+Load Reykjavik binary to Ghidra and select main function for getting all dump.
+interesting section
+
+    local_1d = 0;
+    correct = data._0_8_ ^ 0xabababababababab;
+    local_30 = data._8_8_ ^ 0xabababababababab;
+    local_28 = data._16_8_ ^ 0xabababababababab;
+    local_20 = data[24] ^ 0xab;
+    local_1f = data[25] ^ 0xab;
+    local_1e = data[26] ^ 0xab;
+    iVar1 = strcmp((char *)&correct,(char *)__s2);
+    if (iVar1 == 0) {
+    __printf_chk(1,"Congratulations, you found the flag!!: \'%s\'\n\n",&correct);
+    }
+
+So we need global variable "data" so we can get in from Listing window:
+data with length = 27: e8 ff ed c7 ce ca d9 c5 d0 ee d2 ce f4 e7 9b dd ce f4 e2 c8 ce c7 ca c5 cf f4 d6
+
+so we XOR each byte with 0xabababababababab - You can use cyberchief with recipes: From Hex + XOR with key: 0xabababababababab
