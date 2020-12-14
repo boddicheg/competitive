@@ -23,7 +23,7 @@ smartcity.ctf.          14400   IN      SOA     ns1.smartcity.ctf. admin.smartci
 ;; XFR size: 9 records (messages 1, bytes 307)
 
 ================================================================================================================================
-TASK #2
+TASK #2 Powerplant
 Main target. Information is classified. However, you can gain some insights by examining this network capture.
 
 Solution:
