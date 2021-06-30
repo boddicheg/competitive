@@ -1,27 +1,10 @@
 #include <iostream>
-#include <vector>
 #include <queue>
+#include <set>
 #include <map>
 #include <algorithm>
-
+#include <numeric>
 using namespace std;
-
-#define watch(x) std::cout << (#x) << " is " << (x) << std::endl
-
-template<typename T>
-void print(const T &container)
-{
-    std::cout << "[ ";
-    for (const auto &e : container)
-        std::cout << e << " ";
-    std::cout << "]" << std::endl;
-}
-
-std::ostream &operator<<(std::ostream &ss, const std::pair<int, int> &p)
-{
-    ss << "[ " << p.first << ", " << p.second << " ]";
-    return ss;
-}
 
 struct TreeNode
 {
@@ -30,6 +13,28 @@ struct TreeNode
     TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
+
+void delete_tree(TreeNode * node)
+{
+    if (node->left != nullptr)
+    {
+        TreeNode * left = node->left;
+        node->left = nullptr;
+        delete_tree(left);
+    }
+    if (node->right != nullptr)
+    {
+        TreeNode * right = node->right;
+        node->right = nullptr;
+        delete_tree(right);
+    }
+
+    if (node->left == nullptr && node->right == nullptr)
+    {
+        delete node;
+        node = nullptr;
+    }
+}
 
 std::string to_string(TreeNode *root)
 {
@@ -64,7 +69,61 @@ void print(TreeNode *root)
 
 static int x = []() { std::ios::sync_with_stdio(false); cin.tie(NULL); return 0; }();
 
-class Solution
+class Solution {
+public:
+
+    bool dfs(TreeNode* root, TreeNode* p, vector<TreeNode*>& v)
+    {
+        if (root == nullptr)
+            return false;
+
+        if (dfs(root->left, p, v))
+        {
+            v.push_back(root);
+            return true;
+        }
+
+        if (dfs(root->right, p, v))
+        {
+            v.push_back(root);
+            return true;
+        }
+
+        if (root->val == p->val)
+        {
+            v.push_back(root);
+            return true;
+        }
+
+        return false;
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        std::vector<TreeNode*> dp;
+        std::vector<TreeNode*> dq;
+
+        dfs(root, p, dp);
+        dfs(root, q, dq);
+
+        int len = std::min(dp.size(), dq.size());
+
+        TreeNode *lowest = nullptr;
+
+        for (int i = dp.size() - 1, j = dq.size() -1; i >= 0 && j >=0; i--, j--)
+        {
+            if (dp.at(i) == dq.at(j))
+            {
+                lowest = dp.at(i);
+            }
+            else
+                break;
+        }
+        
+        return lowest;
+    }
+};
+
+class Solution1
 {
 public:
     void travestal(TreeNode *root, TreeNode *p, TreeNode *q, TreeNode *parent)
@@ -118,27 +177,22 @@ private:
 
 int main(int argc, char const *argv[])
 {
-    Solution s;
-
-    TreeNode *t1 = new TreeNode(6);
-    t1->left = new TreeNode(2);
-    t1->left->left = new TreeNode(0);
-    t1->left->right = new TreeNode(4);
-    t1->left->right->left = new TreeNode(3);
-    t1->left->right->right = new TreeNode(5);
-
-    t1->right = new TreeNode(8);
-    t1->right->left = new TreeNode(7);
-    t1->right->right = new TreeNode(9);
+    TreeNode *t1 = new TreeNode(3);
+    t1->left = new TreeNode(5);
+    t1->left->left = new TreeNode(6);
+    t1->left->right = new TreeNode(2);
+    t1->left->right->left = new TreeNode(7);
+    t1->left->right->right = new TreeNode(4);
+    t1->right = new TreeNode(1);
+    t1->right->left = new TreeNode(0);
+    t1->right->right = new TreeNode(8);
     print(t1);
 
-    std::cout << s.lowestCommonAncestor(t1, t1->left->left, t1->left->right->right) << std::endl;
+    Solution s;
+    // auto result = s.lowestCommonAncestor(t1, t1->left, t1->right->right );
+    auto result = s.lowestCommonAncestor(t1, t1->left->left, t1->left->right->right );
+    std::cout << result->val << std::endl;
 
-    delete t1->right->left;
-    delete t1->right->right;
-    delete t1->right;
-    delete t1->left;
-    delete t1;
-
+    delete_tree(t1);
     return 0;
 }

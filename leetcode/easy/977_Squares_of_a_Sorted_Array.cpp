@@ -2,6 +2,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -32,20 +33,39 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
-
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> result(nums.size());
+        size_t idx = nums.size() - 1;
+        
+        int lb = 0;
+        int rb = idx;
+        
+        while (lb <= rb)
+        {
+            if (abs(nums.at(lb)) < abs(nums.at(rb)))
+            {
+                result[idx] = nums.at(rb) * nums.at(rb);
+                rb--;
+            }
+            else
+            {
+                result[idx] = nums.at(lb) * nums.at(lb);
+                lb++;
+            }
+            idx--;
+        }
+ 
+        return result;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    vector<int> v1 = {-7,-3,2,3,11};
+    auto result = s.sortedSquares(v1);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }
