@@ -36,20 +36,38 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1;
+        int right = *std::max_element(piles.begin(), piles.end());
 
+        while (left < right)
+        {
+            int middle = (left + right) / 2 ;
+
+            int hoursEats = 0;
+
+            for(auto &&e: piles)
+            {
+                hoursEats += e / middle + (int)(e % middle != 0);
+            }
+
+            if (hoursEats <= h)
+                right = middle;
+            else
+                left = middle + 1;
+        }
+
+        return right;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    vector<int> v {3,6,7,11};
+    auto result = s.minEatingSpeed(v, 8);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

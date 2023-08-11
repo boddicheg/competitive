@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
-#include <map>
-#include <queue>
+#include <utility>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,22 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
+    std::string restoreString(std::string s, const std::vector<int>& indices)
     {
+        std::string result = s;
+        for (size_t i = 0; i < s.size(); i++)
+            result[indices.at(i)] = s.at(i);
 
+        return result;     
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.restoreString("codeleet",{4,5,6,7,0,2,1,3});
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

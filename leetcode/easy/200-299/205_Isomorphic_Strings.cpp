@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
 #include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,31 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
-
+    bool isIsomorphic(std::string s, std::string t) {
+        std::vector<int> sv(128, -1);
+        std::vector<int> tv(128, -1);
+        for (size_t i = 0; i < s.size(); i++)
+        {
+            if (sv[s.at(i)] != tv[t.at(i)])
+                return false;
+            sv[s.at(i)] = i;
+            tv[t.at(i)] = i;
+        }
+        return true;
     }
 };
-
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.isIsomorphic("egg", "add");
+    auto result1 = s.isIsomorphic("foo", "bar");
+    auto result2 = s.isIsomorphic("paper", "titlr");
+    auto result3 = s.isIsomorphic("ab", "aa");
     std::cout << "Result: " << result << std::endl;
+    std::cout << "Result: " << result1 << std::endl;
+    std::cout << "Result: " << result2 << std::endl;
+    std::cout << "Result: " << result3 << std::endl;
     return 0;
 }

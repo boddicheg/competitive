@@ -36,12 +36,17 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
-
+    string largestOddNumber(string num) {
+        // string buffer;
+        int i = 0;
+        for (i = num.size() - 1; i >= 0; i--)
+        {
+            if ((num.at(i) - '0') % 2 == 1)
+                break;
+        }
+        return string(num.begin(), num.begin() + i  + 1);
     }
 };
 
@@ -49,7 +54,7 @@ int main(int argc, char const *argv[])
 {
     Solution s;
     vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.largestOddNumber("52");
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

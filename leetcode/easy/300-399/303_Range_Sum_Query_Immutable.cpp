@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <set>
-#include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,34 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class NumArray {
 public:
-    int template(vector<int> &nums)
+    NumArray(std::vector<int>& nums) 
+    : n(nums.size(), 0)
     {
-
+        int sum = 0;
+        for (size_t i = 0; i < nums.size(); i++)
+        {
+            sum += nums.at(i);
+            n.at(i) = sum;
+        }
     }
+    
+    int sumRange(int left, int right) {
+        if (left == 0)
+            return n[right];
+
+        return n[right] - n[left - 1];
+    }
+private:
+    std::vector<int> n;
 };
 
 int main(int argc, char const *argv[])
 {
-    Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    std::vector<int> v = {1,2,3,4,5}; 
+    NumArray s(v);
+    auto result = s.sumRange(1, 3);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <set>
-#include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,24 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
+    std::vector<int> shuffle(const std::vector<int>& nums, int n)
     {
-
+        std::vector<int> result(nums.size(), 0);
+        for (size_t i = 0; i < n; i++)
+        {
+            result.at(i) = nums.at(i);
+            result.at(i + 1) =  nums.at(i + n);
+        }
+        return result; 
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.shuffle({2,5,1,3,4,7}, 3);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

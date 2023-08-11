@@ -1,11 +1,20 @@
-Competetive C++
+Competetive
 ===============
+
+Competetive programming
+----------
 
 Some bicycles and kludges for problems from different contest platforms, such as:
 
-# [codingame.com/boddicheg](https://www.codingame.com/profile/e1b7820e6d06df13cccac1ed35e7edef5085101)
+- [codingame.com/boddicheg](https://www.codingame.com/profile/e1b7820e6d06df13cccac1ed35e7edef5085101)
 
-1) Easy puzzles: 19% completed
-2) Medium puzzles: 9% completed
-3) Hard puzzles: 0% completed
-4) Very hard puzzles: 0% completed
+- [leetcode.com/boddicheg](https://leetcode.com/boddicheg/)
+
+Mostly C++
+
+
+CTF writeups
+------------
+Solving interesting puzzles/ctfs from HTB, H1, CTFLearn i.e.
+
+H1 Rend_asunder - exploit chrome/v8 oob for escaping sandbox

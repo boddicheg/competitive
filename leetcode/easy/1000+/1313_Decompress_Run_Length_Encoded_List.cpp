@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <set>
-#include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -34,22 +30,23 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
     return ss;
 }
 
-static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
+static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
+    std::vector<int> decompressRLElist(const std::vector<int>& nums)
     {
-
+        std::vector<int> decompressed;
+        for(int i = 0; i < nums.size(); i += 2)
+            decompressed.insert(decompressed.end(), nums.at(i), nums.at(i + 1));
+        return decompressed;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.decompressRLElist({1, 2, 3, 4});
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

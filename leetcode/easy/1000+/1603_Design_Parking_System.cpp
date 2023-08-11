@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
-#include <map>
-#include <queue>
+#include <unordered_map>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,19 +32,33 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class ParkingSystem {
 public:
-    int template(vector<int> &nums)
+    ParkingSystem(int big, int medium, int small)
+    : parking({big, medium, small})
+    { }
+    
+    bool addCar(int carType)
     {
-
+        if (parking[carType - 1] > 0)
+        {
+            parking[carType - 1]--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+
+private:
+    std::vector<int> parking;
 };
+
 
 int main(int argc, char const *argv[])
 {
-    Solution s;
-    vector<int> v {};
+    ParkingSystem s;
     auto result = s.template(..);
     std::cout << "Result: " << result << std::endl;
     return 0;

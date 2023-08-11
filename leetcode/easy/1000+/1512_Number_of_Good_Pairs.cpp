@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
-#include <map>
-#include <queue>
+#include <unordered_map>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,27 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
+    int numIdenticalPairs(const std::vector<int>& nums) {
+        std::unordered_map<int, int> m;
+        for (auto &&i : nums)
+            m[i] ++;
 
+        int result = 0;
+
+        for (auto &&i : m)
+            result += (i.second * (i.second - 1)) / 2;
+
+        
+        return result;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.numIdenticalPairs({1,1,1,1});
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

@@ -1,9 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <set>
-#include <map>
-#include <queue>
+#include <unordered_set>
 #include <algorithm>
 using namespace std;
 
@@ -36,20 +33,28 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
-
+    bool checkIfExist(vector<int>& arr) {
+        int size = arr.size();
+        for (size_t i = 0; i < size; i++)
+        {
+            for (size_t j = i + 1; j < size; j++)
+            {
+                if (arr[i] == 2 * arr[j] || arr[j] == 2 * arr[i])
+                    return true;
+            }
+            
+        }
+        return false;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    vector<int> v1 {-2,0,10,-19,4,6,-8};
+    auto result = s.checkIfExist(v1);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

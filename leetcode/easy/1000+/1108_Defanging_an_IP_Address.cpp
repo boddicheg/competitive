@@ -1,15 +1,11 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <set>
-#include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
-template<typename T>
+template <typename T>
 void print(const T &container)
 {
     std::cout << "[ ";
@@ -24,7 +20,7 @@ std::ostream &operator<<(std::ostream &ss, const std::pair<int, int> &p)
     return ss;
 }
 
-template<typename T>
+template <typename T>
 std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 {
     ss << "[ ";
@@ -39,17 +35,29 @@ static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); retu
 class Solution
 {
 public:
-    int template(vector<int> &nums)
+    std::string defangIPaddr(std::string address)
     {
+        size_t idx = 0;
 
+        while(idx < address.size())
+        {
+            std::cout << "-> " << address.at(idx) << std::endl;
+            if (address.at(idx) == '.')
+            {
+                address.insert(idx, "[");
+                idx ++;
+                address.insert(idx + 1, "]");
+            }
+            idx ++;
+        }
+        return address;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    auto result = s.defangIPaddr("192.168.1.1");
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

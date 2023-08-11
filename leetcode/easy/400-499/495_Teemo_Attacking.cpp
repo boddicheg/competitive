@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <set>
-#include <map>
-#include <queue>
 #include <algorithm>
-using namespace std;
 
 #define watch(x) std::cout << (#x) << " is " << (x) << std::endl
 
@@ -36,20 +32,35 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
+    int findPoisonedDuration(std::vector<int>& timeSeries, int duration) {
+        if (duration == 0) return 0;
+        if (timeSeries.size() == 1) return duration;
 
+        int result = 0;
+        int start = timeSeries.at(0);
+        int end = start + duration; 
+        for(int i = 1; i < timeSeries.size(); i ++)
+        {
+            if (timeSeries.at(i) > end)
+            {
+                result += end - start;
+                start = timeSeries.at(i);
+            }
+            end = timeSeries.at(i) + duration;
+        }
+        result += end - start;
+        return result;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    std::vector<int> v {1,2,3,4,5};
+    // std::vector<int> v {1, 2};
+    auto result = s.findPoisonedDuration(v, 5);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

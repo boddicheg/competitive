@@ -36,15 +36,32 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
+    string kthLargestNumber(vector<string>& nums, int k) {
+        auto cmp = [](std::string& left, std::string& right) 
+        {
+            if (left.size() != right.size())
+                return left.size() > right.size();
 
+            for(int i = 0; i < left.size(); i ++ )
+            {
+                int l = left.at(i) - '0';
+                int r = right.at(i) - '0';
+                if (l != r)
+                {
+                    return l > r;
+                }
+            } 
+        };
+        std::priority_queue<std::string, std::vector<std::string>, decltype(cmp)> 
+            pq(nums.begin(), nums.end(), cmp);
+        while (pq.size() > k)
+            pq.pop();
+        
+        return pq.top();
     }
 };
-
 int main(int argc, char const *argv[])
 {
     Solution s;

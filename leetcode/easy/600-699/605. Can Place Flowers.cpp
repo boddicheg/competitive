@@ -36,20 +36,31 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &c)
 
 static int x = []() { std::ios::sync_with_stdio(false); std::cin.tie(NULL); return 0; }();
 
-class Solution
-{
+class Solution {
 public:
-    int template(vector<int> &nums)
-    {
-
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        int space = 0;
+        for (size_t i = 0; i < flowerbed.size(); i++)
+        {
+            if (flowerbed.at(i) == 0 &&
+                (i == 0 || flowerbed.at(i - 1) == 0) &&
+                (i == flowerbed.size() - 1 || flowerbed.at(i + 1) == 0)
+            )
+            {
+                flowerbed.at(i) = 1;
+                space++;
+            }
+        }
+        return space >= n;
     }
 };
+
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<int> v {};
-    auto result = s.template(..);
+    vector<int> v {0,1,0};
+    auto result = s.canPlaceFlowers(v, 1);
     std::cout << "Result: " << result << std::endl;
     return 0;
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <set>
+#include <list>
 #include <algorithm>
 
 using namespace std;
@@ -23,12 +23,7 @@ class Solution
 public:
     void rotate(vector<int> &nums, int k)
     {
-        for (int i = 0; i < k; ++i)
-        {
-            int back = nums.back();
-            nums.pop_back();
-            nums.insert(nums.begin(), back);
-        }
+        std::rotate(nums.rbegin(), nums.rbegin() + k % nums.size(), nums.rend());
     }
 };
 
@@ -37,7 +32,6 @@ int main(int argc, char const *argv[])
     std::vector<int> data = {1,2,3,4,5,6,7};
     Solution s;
     s.rotate(data, 3);
-
     print(data);
 
     return 0;
