@@ -1,1 +1,0 @@
-Solutions for non-trivial and/or interesing puzzles from http://ctflearn.com
