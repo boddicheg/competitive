@@ -11,10 +11,3 @@ Some bicycles and kludges for problems from different contest platforms, such as
 - [leetcode.com/boddicheg](https://leetcode.com/boddicheg/)
 
 Mostly C++
-
-
-CTF writeups
-------------
-Solving interesting puzzles/ctfs from HTB, H1, CTFLearn i.e.
-
-H1 Rend_asunder - exploit chrome/v8 oob for escaping sandbox
